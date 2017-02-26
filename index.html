@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Socket.io demo</title>
+  </head>
+  <body>
+    <p>Open the console to see things happening.</p>
+    <p>Type <pre>makeAnnoucement('Hello everyone!')</pre> in the console to make an announcement to all connected clients.</p>
+
+    <!-- The serverside part of socket.io automatically makes the file "/socket.io/socket.io.js" available to the clients -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+      // The function 'io' is defined in the socket.io.js script above
+      const socket = io()
+      // This sets things up and sends a connection message to the server
+
+      // This sets up a listener for the 'welcome' message
+      socket.on('welcome', function () {
+        // This function gets run whenever a 'welcome' message is recieved
+        console.log('A welcome message was recieved from the server')
+      })
+
+      // This sets up a listener for the 'newClientConnected' message
+      socket.on('newClientConnected', function (data) {
+        // This function gets run whenever a 'newClientConnected' message is recieved
+        console.log('A new client with id', data, 'connected to the server')
+      })
+
+      // This sets up a listener for the 'clientDisconnected' message
+      socket.on('clientDisconnected', function (data) {
+        // This function gets run whenever a 'clientDisconnected' message is recieved
+        console.log('A new client with id', data, 'disconnected from the server')
+      })
+
+      // This sets up a listener for the 'announcement' message
+      socket.on('announcement', function (data) {
+        // This function gets run whenever a 'announcement' message is recieved
+        console.log('Announcement:', data)
+      })
+
+      // This defines the function 'makeAnnoucement' which a user can type into the console
+      function makeAnnoucement(announcement) {
+        socket.emit('makeAnnouncement', announcement)
+        // This sends a 'makeAnnoucement' message to the server with the data 'announcement'
+      }
+    </script>
+  </body>
+</html>
