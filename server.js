@@ -20,12 +20,6 @@ io.on('connection', function (client) {
   // The client id is sent along with the message as data
   io.emit('newClientConnected', client.id)
 
-  // This sets up a listener for the 'newClientConnected' message
-  client.on('newClientConnected', function (data) {
-    // This function gets run whenever a 'newClientConnected' message is recieved
-    console.log('A new client with id', data, 'connected to the server')
-  })
-
   // This sets up a listener for a 'makeAnnoucement' message
   client.on('makeAnnouncement', function (data) {
     // This function gets run whenever a 'makeAnnoucement' message is recieved
